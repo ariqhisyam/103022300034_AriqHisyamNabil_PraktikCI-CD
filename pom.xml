@@ -80,4 +80,12 @@
             </plugin>
         </plugins>
     </build>
+       <!-- Continuous Delivery: target registry GitHub Packages -->
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages</name>
+      <url>https://maven.pkg.github.com/ariqhisyam/103022300034_AriqHisyamNabil_PraktikCI-CD</url>
+    </repository>
+  </distributionManagement>
 </project>

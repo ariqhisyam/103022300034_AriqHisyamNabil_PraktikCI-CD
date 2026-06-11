@@ -18,26 +18,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout kode sumber
+      - name: Checkout sumber kode
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Setup JDK 17
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           java-version: "17"
           distribution: "temurin"
           cache: maven
 
-      - name: Cache SonarCloud packages
+      - name: Cache SonarCloud
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
-      - name: Kompilasi, Unit Test & Analisis SonarCloud
+      - name: Kompilasi & Unit Test + SonarCloud
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
       - name: Package JAR
         run: mvn -B package -DskipTests --file pom.xml
 
-      - name: Upload artefak JAR
+      - name: Unggah JAR sebagai artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
@@ -71,7 +71,7 @@ jobs:
       packages: write
 
     steps:
-      - name: Checkout kode sumber
+      - name: Checkout sumber kode
         uses: actions/checkout@v4
 
       - name: Setup JDK 17 dengan autentikasi GitHub Packages
@@ -84,7 +84,7 @@ jobs:
           server-username: GITHUB_ACTOR
           server-password: GITHUB_TOKEN
 
-      - name: Deploy ke GitHub Packages
+      - name: Deploy ke Git Pack
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
