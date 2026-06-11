@@ -84,7 +84,10 @@ jobs:
           server-username: GITHUB_ACTOR
           server-password: GITHUB_TOKEN
 
-      - name: Deploy ke Git Pack
+      - name: Set versi unik berdasarkan run number
+        run: mvn versions:set -DnewVersion=1.0.${{ github.run_number }} -DgenerateBackupPoms=false --file pom.xml
+
+      - name: Deploy ke GitHub Packages
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
